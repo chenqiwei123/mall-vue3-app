@@ -151,7 +151,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   .login {
     .logo {
       width: 120px;

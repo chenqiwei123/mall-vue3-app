@@ -19,7 +19,7 @@ export default {
       // 初始化绘制图片验证码
       state.imgCode = draw()
     })
-    
+
     // 点击图片重新绘制
     const handleDraw = () => {
       state.imgCode = draw()
@@ -115,7 +115,7 @@ export default {
   }
 }
 </script>
-<style type="text/css">
+<style type="text/css" scoped>
 .img-verify canvas {
   cursor: pointer;
 }

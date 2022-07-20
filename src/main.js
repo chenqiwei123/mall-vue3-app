@@ -1,20 +1,26 @@
 import { createApp } from 'vue'
 import { ActionBar, ActionBarIcon, ActionBarButton, Divider, Popup, Overlay, Loading, Dialog, ContactCard, Form, AddressEdit, AddressList, Field, CellGroup, Cell, SwipeCell, Icon, Stepper, Card, Checkbox, CheckboxGroup, Button, Swipe, SwipeItem, PullRefresh, List, Tab, Tabs, SubmitBar, Toast, Skeleton } from 'vant'
-import App from './App.vue'
+
 import store from './store'
-import router from './router'
+
 import 'lib-flexible/flexible'
-import 'vant/lib/index.css'; // 全局引入样式
+import 'vant/lib/index.css'
+// import axios from './utils/axios'
+import router from './router'
+import App from './App.vue'
 
 const app = createApp(App) // 创建实例
-
+// axios.defaults.baseURL = 'http://101.35.56.5:28019'
 // 全局过滤器
 app.config.globalProperties.$filters = {
   prefix(url) {
     if (url && url.startsWith('http')) {
       return url
     } else {
-      url = `http://backend-api-01.newbee.ltd${url}`
+      // url = `http://backend-api-01.newbee.ltd${url}`
+      // url = `http://101.35.56.5:28019${url}`
+      url = `http://127.0.0.1:28019${url}`
+      // url = `${url}`
       return url
     }
   }

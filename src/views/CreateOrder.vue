@@ -9,7 +9,7 @@
 -->
 
 <template>
-  <div class="create-order">
+  <div class="create-order" id="Alipay">
     <s-header :name="'生成订单'" @callback="deleteLocal"></s-header>
     <div class="address-wrap">
       <div class="name" @click="goTo">
@@ -47,12 +47,12 @@
       :close-on-click-overlay="false"
       v-model:show="showPay"
       position="bottom"
-      :style="{ height: '30%' }"
+      :style="{ height: '15%' }"
       @close="close"
     >
       <div :style="{ width: '90%', margin: '0 auto', padding: '50px 0' }">
         <van-button :style="{ marginBottom: '10px' }" color="#1989fa" block @click="handlePayOrder(1)">支付宝支付</van-button>
-        <van-button color="#4fc08d" block @click="handlePayOrder(2)">微信支付</van-button>
+<!--        <van-button color="#4fc08d" block @click="handlePayOrder(2)">微信支付</van-button>-->
       </div>
     </van-popup>
   </div>
@@ -67,6 +67,7 @@ import { createOrder, payOrder } from '@/service/order'
 import { setLocal, getLocal } from '@/common/js/utils'
 import { Toast } from 'vant'
 import { useRoute, useRouter } from 'vue-router'
+import axios from '../utils/axios'
 export default {
   components: {
     sHeader
@@ -85,7 +86,7 @@ export default {
     onMounted(() => {
       init()
     })
-    
+
     const init = async () => {
       Toast.loading({ message: '加载中...', forbidClick: true });
       const { addressId, cartItemIds } = route.query
@@ -126,12 +127,35 @@ export default {
       router.push({ path: '/order' })
     }
 
+    const Alipay = (type)=>{
+      axios.post('/Alipay',
+          {
+            'outTradeNo':state.orderNo,
+            'totalAmount':'A'+total.value+'A',
+            'subject':'支付宝支付'+type
+          })
+          .then((res) =>{//返回成功调用此方法
+            console.info("成功呢!");
+            payOrder({ orderNo: state.orderNo, payType: type })
+            console.log(document.querySelector('body'))
+            document.querySelector('body').innerHTML  = res.data; //查找到当前页面的body，将后台返回的form替换掉他的内容
+            document.forms[0].submit();  //执行submit表单提交，让页面重定向，跳转到支付宝页面
+          })
+          .catch((err)=>{
+            console.log(err)
+          })
+    }
+
     const handlePayOrder = async (type) => {
-      await payOrder({ orderNo: state.orderNo, payType: type })
-      Toast.success('支付成功')
-      setTimeout(() => {
-        router.push({ path: '/order' })
-      }, 2000)
+
+      Alipay(type);
+      // await payOrderAlipay({outTradeNo:state.orderNo,totalAmount:total,subject:'支付宝支付',product_code:"支付宝支付"})
+      // Toast.success('支付成功')
+      // console.log("orderNo:"+state.orderNo+" \t "+"payType:"+type)
+      // console.log(state)
+      // setTimeout(() => {
+      //   router.push({ path: '/order' })
+      // }, 2000)
     }
 
     const total = computed(() => {

@@ -10,10 +10,11 @@
 
 <template>
   <div>
-    <header class="home-header wrap" :class="{'active' : headerScroll}">
+<!--    :class="{'active' : headerScroll}"-->
+
+    <header class="home-header wrap active" >
       <router-link tag="i" to="./category"><i class="nbicon nbmenu2"></i></router-link>
       <div class="header-search">
-        <span class="app-name">新蜂商城</span>
         <i class="iconfont icon-search"></i>
         <router-link tag="span" class="search-title" to="./product-list?from=home">山河无恙，人间皆安</router-link>
       </div>
@@ -22,14 +23,17 @@
         <van-icon name="manager-o" />
       </router-link>
     </header>
-    <nav-bar />
-    <swiper :list="swiperList"></swiper>
-    <div class="category-list">
-      <div v-for="item in categoryList" v-bind:key="item.categoryId" @click="tips">
-        <img :src="item.imgUrl">
-        <span>{{item.name}}</span>
-      </div>
+
+    <div class="good">
+      <header class="good-header">cqw.runwsh.com</header>
     </div>
+    <swiper :list="swiperList" ></swiper>
+<!--    <div class="category-list">-->
+<!--      <div v-for="item in categoryList" v-bind:key="item.categoryId" @click="tips">-->
+<!--        <img :src="item.imgUrl">-->
+<!--        <span>{{item.name}}</span>-->
+<!--      </div>-->
+<!--    </div>-->
     <div class="good">
       <header class="good-header">新品上线</header>
       <van-skeleton title :row="3" :loading="loading">
@@ -79,7 +83,7 @@
 import { reactive, onMounted, toRefs, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import swiper from '@/components/Swiper'
-import navBar from '@/components/NavBar'
+// import navBar from '@/components/NavBar'
 import { getHome } from '@/service/home'
 import { getLocal } from '@/common/js/utils'
 import { Toast } from 'vant'
@@ -88,7 +92,7 @@ export default {
   name: 'home',
   components: {
     swiper,
-    navBar
+    // navBar
   },
   setup() {
     const store = useStore()

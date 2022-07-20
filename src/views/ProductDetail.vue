@@ -123,7 +123,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   @import '../common/style/mixin';
   .product-detail {
     .detail-header {

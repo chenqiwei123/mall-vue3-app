@@ -142,7 +142,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   @import '../common/style/mixin';
   .edit {
     .van-field__body {

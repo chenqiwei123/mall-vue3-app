@@ -170,7 +170,7 @@ export default {
       }
       state.result = result
     }
-    
+
     const allCheck = () => {
       if (!state.checkAll) {
         state.result = state.list.map(item => item.cartItemId)
@@ -179,7 +179,7 @@ export default {
       }
     }
 
-    
+
 
     return {
       ...toRefs(state),
@@ -196,7 +196,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   @import '../common/style/mixin';
   .cart-box {
     .cart-header {
